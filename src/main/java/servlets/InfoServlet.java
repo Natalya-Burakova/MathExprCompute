@@ -17,12 +17,6 @@ public class InfoServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();
-        String version = "UNDEFINED";
-        Properties prop = new Properties();
-        try {
-            prop.load(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF"));
-            version = prop.getProperty("Implementation-Build");
-        } catch (IOException e) {}
         writer.print("<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<p>Info or repo: </p>\n" +
@@ -42,15 +36,16 @@ public class InfoServlet extends HttpServlet {
         }
     }
 
-    private String readFromInputStream(InputStream inputStream)
-            throws IOException {
+    private String readFromInputStream(InputStream inputStream) throws IOException {
         StringBuilder resultStringBuilder = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = br.readLine()) != null) {
+                System.out.println(line);
                 resultStringBuilder.append(line).append("\n");
             }
         }
+        catch (Exception e){e.printStackTrace();}
         return resultStringBuilder.toString();
     }
 

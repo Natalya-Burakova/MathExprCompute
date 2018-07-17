@@ -81,10 +81,11 @@
                     <version>2.2.4</version>
                     <executions>
                         <execution>
-                            <id>get-the-git-infos</id>
+                            <id>validate-the-git-infos</id>
                             <goals>
-                                <goal>revision</goal>
+                                <goal>validateRevision</goal>
                             </goals>
+                            <phase>package</phase>
                         </execution>
                     </executions>
                     <configuration>
