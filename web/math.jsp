@@ -8,12 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
-<form action="/math" method="get">
-  <p>Select next action:</p>
-  <p><input name="сompute" type="submit" value="compute expression"></p>
-</form>
-<form action="/info" method="get">
-  <p><input name="info" type="submit" value="info or repo"></p>
+<form action="/compute" method="post">
+  <p>Enter an arithmetic expression in JSON format:</p>
+  <p><textarea name="expr" required></textarea></p>
+  <p><input name="сompute" type="submit" value="compute"></p>
 </form>
 </body>
 </html>
