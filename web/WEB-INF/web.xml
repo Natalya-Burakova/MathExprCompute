@@ -16,7 +16,25 @@
 
     <servlet-mapping>
         <servlet-name>math</servlet-name>
+        <url-pattern>/math</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>compute</servlet-name>
+        <servlet-class>servlets.ComputeServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>compute</servlet-name>
         <url-pattern>/compute</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>info</servlet-name>
+        <servlet-class>servlets.InfoServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>info</servlet-name>
+        <url-pattern>/info</url-pattern>
+    </servlet-mapping>
 </web-app>
