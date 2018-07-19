@@ -8,9 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.RequestDispatcher;
 import java.io.PrintWriter;
 
 public class ComputeServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/exprCompute.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String jsonExpr = request.getParameter("expr");
@@ -35,11 +44,17 @@ public class ComputeServlet extends HttpServlet {
             answer = "{\n" + "\"message\":\"Request is not a json object\"\n" + "}\n";
         }
 
-        writer.print("<!DOCTYPE html>\n" +
+
+
+        request.setAttribute("json", answer);
+        doGet(request, response);
+        /*writer.print("<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<p>Answer: </p>\n" +
                 "<body>\n" + answer +
                 "</body>\n" +
-                "</html>");
+                "</html>");*/
     }
+
+
 }
