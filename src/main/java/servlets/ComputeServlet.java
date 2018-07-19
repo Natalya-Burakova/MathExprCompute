@@ -1,9 +1,5 @@
 package servlets;
 
-import arifmetic.SyntaxAnalisator;
-import parse.Analysis;
-import valid.Validator;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,17 +7,20 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.RequestDispatcher;
 import java.io.PrintWriter;
+import valid.Validator;
+import parse.Analysis;
+import arifmetic.SyntaxAnalisator;
 
 public class ComputeServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException , ServletException{
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/exprCompute.jsp");
         requestDispatcher.forward(request, response);
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String jsonExpr = request.getParameter("expr");
         Validator validator = new Validator();
 
@@ -48,12 +47,6 @@ public class ComputeServlet extends HttpServlet {
 
         request.setAttribute("json", answer);
         doGet(request, response);
-        /*writer.print("<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<p>Answer: </p>\n" +
-                "<body>\n" + answer +
-                "</body>\n" +
-                "</html>");*/
     }
 
 

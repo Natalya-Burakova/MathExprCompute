@@ -1,7 +1,6 @@
 package arifmetic;
 
 public class Parser {
-
     //  Объявление лексем
     final int NONE = 0;         //  FAIL
     final int DELIMITER = 1;    //  Разделитель(+-*/^=, ")", "(" )
@@ -212,7 +211,7 @@ public class Parser {
     }
 
     //  Получить значение числа
-    private double atom()   throws ParserException{
+    private double atom()  throws ParserException{
 
         double result = 0.0;
         switch(tokType){
@@ -236,7 +235,7 @@ public class Parser {
     //  Кинуть ошибку
     private void handleErr(int j) throws ParserException{
 
-        String[] err  = {
+       String[] err  = {
                 "Syntax error",
                 "Unbalanced Parentheses",
                 "No Expression Present",

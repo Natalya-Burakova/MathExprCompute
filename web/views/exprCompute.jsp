@@ -13,14 +13,14 @@
 <div>
     <%
         if (request.getAttribute("json") != null) {
-            out.println(request.getAttribute("json"));
+            out.println(request.getAttribute("json") + "\n");
         }
     %>
 
 </div>
 
 <div>
-    <button onclick="location.href='/'">Back to main</button>
+    <button onclick="location.href='/'">Back to start</button>
 </div>
 </body>
 </html>
