@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.jar.Attributes;
@@ -14,37 +16,30 @@ import java.util.jar.Manifest;
 public class InfoServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter writer = response.getWriter();
-        writer.print("<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<p>Info or repo: </p>\n" +
-                "<body>\n" + readGitProperties() +
-                "</body>\n" +
-                "</html>");
+        request.setAttribute("properties", readGitProperties());
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/info/info.jsp");
+        requestDispatcher.forward(request, response);
     }
 
-    private String readGitProperties() {
+
+    private ArrayList readGitProperties() {
         ClassLoader classLoader = getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream("git.properties");
         try {
             return readFromInputStream(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
-            return "Version information could not be retrieved";
+            return new ArrayList();
         }
     }
 
-    private String readFromInputStream(InputStream inputStream) throws IOException {
-        StringBuilder resultStringBuilder = new StringBuilder();
+    private ArrayList readFromInputStream(InputStream inputStream) throws IOException {
+        ArrayList<String> resultString = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
-            while ((line = br.readLine()) != null) {
-                resultStringBuilder.append(line).append("\n");
-            }
+            while ((line = br.readLine()) != null)
+                resultString.add(line);
         }
-        return resultStringBuilder.toString();
+        return resultString;
     }
 
 }

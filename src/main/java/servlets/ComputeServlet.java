@@ -7,6 +7,9 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.RequestDispatcher;
 import java.io.PrintWriter;
+import json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import valid.Validator;
 import parse.Analysis;
 import arifmetic.SyntaxAnalisator;
@@ -15,7 +18,7 @@ public class ComputeServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException , ServletException{
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/exprCompute.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/printOutExpr/exprCompute.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -24,26 +27,29 @@ public class ComputeServlet extends HttpServlet {
         String jsonExpr = request.getParameter("expr");
         Validator validator = new Validator();
 
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter writer = response.getWriter();
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create(); //объект для вывода
+        JSONObject obj = new JSONObject();
+
 
         String answer;
-        //если json файл является валидным
         if (validator.isJSONValid(jsonExpr)) {
             String expr = Analysis.analysis(jsonExpr);//вытаскиваем выражение из json файла
             if (expr!=null) {
                 SyntaxAnalisator syntaxAnalisator = new SyntaxAnalisator();
                 answer = syntaxAnalisator.getAnalyseStr(expr);
             }
-            else
-                answer = "{\n" + "\"message\":\"The request must be in the following format: {\"expression\": \"*expression*\" }\"\n" + "}\n";
+            else {
+                obj.setMessage("The request must be in the following format: {\"expression\": \"*expression*\" }\"\n");
+                answer = gson.toJson(obj);
+            }
         }
         else {
-            answer = "{\n" + "\"message\":\"Request is not a json object\"\n" + "}\n";
+            obj.setMessage("\"message\":\"Request is not a json object\"\n");
+            answer = gson.toJson(obj);
         }
-
-
 
         request.setAttribute("json", answer);
         doGet(request, response);
