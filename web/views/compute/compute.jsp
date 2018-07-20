@@ -15,9 +15,10 @@
     <div class="w3-container w3-center w3-green">
         <h2>Input expression:</h2>
     </div>
+
     <form method="post" class="w3-selection w3-light-grey w3-padding">
-        <textarea type="text" name="expr" class="w3-textarea w3-white" cols="40" rows="10"> </textarea>
-        <button type="submit" formmethod="post" class="w3-btn w3-green w3-round-large w3-margin-bottom" onclick="location.href='/compute'">compute</button>
+        <textarea type="text" name="expr" cols="40" rows="10"> </textarea>
+        <button type="submit" formmethod="post" class="w3-btn w3-green w3-round-large w3-margin-bottom">compute</button>
     </form>
 </div>
 </body>

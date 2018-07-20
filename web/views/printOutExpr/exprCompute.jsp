@@ -16,11 +16,11 @@
 <div class="w3-container w3-center w3-margin-bottom w3-padding">
     <div class="w3-card-4">
         <div class="w3-container w3-light-blue">
-            <h2>Info of repo:</h2>
+            <h2>Answer:</h2>
         </div>
         <%
         if (request.getAttribute("json") != null) {
-            out.println("<ul class=\"w3-ul\"> <li class=\\\"w3-hover-sand\\\">\"" + request.getAttribute("json") + "</li></ul>");
+            out.println("<ul class=\"w3-ul\"> <li class=\\\"w3-hover-sand\\\">" + request.getAttribute("json") + "</li></ul>");
         }
         %>
     </div>

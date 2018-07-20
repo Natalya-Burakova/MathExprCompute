@@ -25,11 +25,12 @@
             if (properties != null && !properties.isEmpty()) {
                 out.println("<ul class=\"w3-ul\">");
                 for (String s : properties) {
+                    s = s.replace('\"', ' ').replace(',',' ');
                     if (s.contains("{") || s.contains("}"));
                     else if (s.contains("git.branch"))
                         branch = s;
                     else if (s.contains("git.commit.id.abbrev"))
-                        rev = s;
+                        rev = s ;
                     else
                         out.println("<li class=\"w3-hover-sand\" style=\"height: 4%\">" + s + "</li>");
                 }
