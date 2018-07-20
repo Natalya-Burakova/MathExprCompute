@@ -1,15 +1,13 @@
 package servlets;
 
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
@@ -19,8 +17,8 @@ public class InfoServlet extends HttpServlet {
         request.setAttribute("properties", readGitProperties());
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/info/info.jsp");
         requestDispatcher.forward(request, response);
-    }
 
+    }
 
     private ArrayList readGitProperties() {
         ClassLoader classLoader = getClass().getClassLoader();

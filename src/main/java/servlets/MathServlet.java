@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import json.JSONObject;
 import com.google.gson.Gson;
@@ -49,9 +50,16 @@ public class MathServlet extends HttpServlet {
             obj.setMessage("Request is not a json object");
             answer = gson.toJson(obj);
         }
-        request.setAttribute("json", answer);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/printOutExpr/exprCompute.jsp");
-        requestDispatcher.forward(request, response);
+
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.print(answer);
+        out.flush();
+
+
+        // request.setAttribute("json", answer);
+        //RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/printOutExpr/exprCompute.jsp");
+        //requestDispatcher.forward(request, response);
     }
 
 }
